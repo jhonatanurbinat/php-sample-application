@@ -1,6 +1,6 @@
 
 
-C:\Users\urbinajp\OneDrive - GLOBAL HITSS\Escritorio\Documentos>ssh -i CSS-KP.pem ec2-user@54.90.157.203
+C:\Users\urbinajp\OneDrive - \Escritorio\Documentos>ssh -i CSS-KP.pem ec2-user@54.90.157.203
 
 
 [ec2-user@ip-10-0-1-192 var]$ ls -la php-app.zip
