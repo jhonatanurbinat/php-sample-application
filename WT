@@ -1,0 +1,212 @@
+
+
+C:\Users\urbinajp\OneDrive - GLOBAL HITSS\Escritorio\Documentos>ssh -i CSS-KP.pem ec2-user@54.90.157.203
+
+
+[ec2-user@ip-10-0-1-192 var]$ ls -la php-app.zip
+-rw-r--r-- 1 root root 716328 Oct 25  2022 php-app.zip
+
+
+sudo yum install -y httpd
+
+sudo systemctl start httpd
+
+
+sudo yum install -y mariadb-server
+
+sudo systemctl start mariadb
+
+sudo amazon-linux-extras enable php7.4
+
+sudo yum clean metadata
+
+sudo yum install -y php php-mysqlnd
+
+systemctl restart httpd
+
+
+mysql -u root -p
+
+CREATE DATABASE peopledb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+EXIT;
+
+
+mysql -u root -p peopledb < /tmp/test01/phpcrud/peopledb.sql
+
+ echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
+
+peopledb
+
+mysql -u root -p
+
+USE peopledb;
+SHOW TABLES;
+
+
+sudo yum install -y httpd
+
+sudo amazon-linux-extras enable php7.4
+
+
+sudo cp -r /tmp/test01/phpcrud/*.php  /var/www/html/
+
+ ls -la /var/www/html/
+ 
+ 54.90.157.203
+ 
+ 
+ sudo yum install -y mod_ssl
+
+ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /etc/pki/tls/private/selfsigned.key \
+  -out /etc/pki/tls/certs/selfsigned.crt
+  
+  sudo nano /etc/httpd/conf.d/ssl.conf
+  
+  -------
+  -------
+  113  sudo nano /etc/httpd/conf.d/ssl.conf
+  114  sudo vi /etc/httpd/conf.d/ssl.conf
+  115  sudo cat /etc/httpd/conf.d/ssl.conf | grep -i certificate
+  116  sudo cat /etc/httpd/conf.d/ssl.conf | grep -i certificatefile
+  117  sudo cat /etc/httpd/conf.d/ssl.conf | grep -i SSLCertificateFile
+  118  sudo cat /etc/httpd/conf.d/ssl.conf | grep -i SSLCertificateKeyFile
+  119  sudo cat /etc/httpd/conf.d/ssl.conf | grep -in SSLCertificateKeyFile
+  120  sudo cat /etc/httpd/conf.d/ssl.conf | grep -in SSLCertificateFile
+  121  sudo vi /etc/httpd/conf.d/ssl.conf
+  122  sudo cat /etc/httpd/conf.d/ssl.conf | grep -in Document
+  123  sudo cat /etc/httpd/conf.d/ssl.conf | grep -in Documentroot
+  124  sudo vi /etc/httpd/conf.d/ssl.conf
+  125  sudo nano /etc/httpd/conf.d/http-to-https.conf
+  126  sudo systemctl restart httpd
+  127  systemctl status httpd
+  128  history
+  -------
+  ------- 
+  
+  ec2-user@ip-10-0-1-192 ~]$ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+>   -keyout /etc/pki/tls/private/selfsigned.key \
+>   -out /etc/pki/tls/certs/selfsigned.crt
+Generating a 2048 bit RSA private key
+..........................................................+++
+............+++
+writing new private key to '/etc/pki/tls/private/selfsigned.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:CO
+State or Province Name (full name) []:Medellin
+Locality Name (eg, city) [Default City]:Medellin
+Organization Name (eg, company) [Default Company Ltd]:company
+Organizational Unit Name (eg, section) []:section
+Common Name (eg, your name or your server's hostname) []:ip-10-0-1-192
+Email Address []:jhonatanurbinat@gmail.com
+[ec2-user@ip-10-0-1-192 ~]$ sudo nano /etc/httpd/conf.d/ssl.conf
+
+100 
+107
+57 
+Lineas
+
+
+----
+----
+----
+
+sudo logrotate -f /etc/logrotate.d/httpd-custom
+
+[ec2-user@ip-10-0-1-192 ~]$ sudo ls -lh /var/log/httpd/
+total 76K
+-rw-r----- 1 root adm     0 Jul  1 05:35 access_log
+-rw-r--r-- 1 root root  44K Jul  1 05:31 access_log.1
+-rw-r----- 1 root adm   816 Jul  1 05:38 error_log
+-rw-r----- 1 root adm   518 Jul  1 05:37 error_log.1.gz
+-rw-r----- 1 root adm   516 Jul  1 05:35 error_log.2.gz
+-rw-r----- 1 root adm     0 Jul  1 05:35 ssl_access_log
+-rw-r--r-- 1 root root 1.2K Jul  1 05:31 ssl_access_log.1
+-rw-r----- 1 root adm   363 Jul  1 05:38 ssl_error_log
+-rw-r----- 1 root adm   219 Jul  1 05:37 ssl_error_log.1.gz
+-rw-r----- 1 root adm   220 Jul  1 05:35 ssl_error_log.2.gz
+-rw-r----- 1 root adm     0 Jul  1 05:35 ssl_request_log
+-rw-r--r-- 1 root root 1.5K Jul  1 05:31 ssl_request_log.1
+
+----
+----
+----
+
+
+zcat /var/log/httpd/access_log.2.gz
+
+
+[ec2-user@ip-10-0-1-192 ~]$ hostname
+ip-10-0-1-192.ec2.internal
+[ec2-user@ip-10-0-1-192 ~]$
+
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+-keyout /etc/pki/tls/private/selfsigned.key \
+-out /etc/pki/tls/certs/selfsigned.crt \
+-subj "/C=CO/ST=State/L=City/O=YourOrg/CN=54.90.157.203"
+
+
+Country Name (2 letter code) [XX]:CO
+State or Province Name (full name) []:Medellin
+Locality Name (eg, city) [Default City]:Medellin
+Organization Name (eg, company) [Default Company Ltd]:company
+Organizational Unit Name (eg, section) []:section
+Common Name (eg, your name or your server's hostname) []:ip-10-0-1-192
+Email Address []:jhonatanurbinat@gmail.com
+[ec2-user@ip-10-0-1-192 ~]$ sudo nano /etc/httpd/conf.d/ssl.conf
+
+curl http://169.254.169.254/latest/meta-data/public-ipv4
+
+
+
+sudo yum install -y git
+
+
+sudo yum update -y
+sudo amazon-linux-extras install docker -y
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo usermod -aG docker ec2-user
+
+
+
+
+
+root@2bf28aff3087:/etc/apache2/sites-enabled# cat 000-default.conf
+<VirtualHost *:80>
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with "a2disconf".
+        #Include conf-available/serve-cgi-bin.conf
+</VirtualHost>
