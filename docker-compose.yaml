@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  db:
+    image: mariadb:10.5
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sampledb
+      MYSQL_USER: sampleuser
+      MYSQL_PASSWORD: samplepass
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d/
+
+  web:
+    build: .
+    container_name: php_app
+#    volumes:
+#      - .:/var/www/html/
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+
+
+volumes:
+  db_data:

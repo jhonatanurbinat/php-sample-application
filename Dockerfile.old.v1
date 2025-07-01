@@ -1,0 +1,53 @@
+# Use an official PHP image as a base
+FROM php:8.2-apache
+
+# Set the working directory inside the container
+WORKDIR /var/www/html
+
+# Install system dependencies needed for PHP extensions (e.g., gd, mbstring)
+# We use apt-get update first, then install, and clean up afterwards
+RUN apt-get update && \
+    apt-get install -y \
+        git \
+        unzip \
+        libzip-dev \
+        libonig-dev \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install common PHP extensions (you might need more depending on the project's actual needs)
+# For this sample, mbstring and zip are common.
+# Check the project's composer.json and any error messages during composer install for specific needs.
+RUN docker-php-ext-install pdo_mysql mbstring zip
+#RUN a2enmod rewrite
+ADD docker/apache/vhost.conf /etc/apache2/sites-enabled/000-default.conf
+
+
+# Install Composer globally
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+# Copy the application code into the container
+# Use .dockerignore to exclude unnecessary files like .git
+COPY . .
+
+
+
+# Install PHP dependencies using Composer
+# The --no-dev flag is good for production builds to skip development dependencies
+#RUN composer install --no-dev --optimize-autoloader
+# Run the install-dev logic from the Makefile
+
+# Set Apache DocumentRoot to /var/www/html/web
+#RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/web|g' /etc/apache2/sites-available/000-default.conf && \
+ #   echo "Include /var/www/html/config/vhost.conf" >> /etc/apache2/sites-available/000-default.conf
+
+
+RUN composer install && \
+    ln --symbolic --no-dereference --force config config
+
+
+# Expose port 80 (default for Apache)
+EXPOSE 80
+
+# The base image (php:8.2-apache) already sets up Apache to serve from /var/www/html
+# and starts the server. No need for an explicit CMD here.
